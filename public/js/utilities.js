@@ -47,7 +47,7 @@ function getWwwUrl()
 	 * Cette variable permet de créer des URLs vers des fichiers statiques.
 	 */
 	wwwUrl = window.location.href;
-	wwwUrl = wwwUrl.substr(0, wwwUrl.indexOf('/index.php')) + '/application/www';
+	wwwUrl = wwwUrl.substr(0, wwwUrl.indexOf('/index.php'));
 
 	return wwwUrl;
 }
