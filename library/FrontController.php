@@ -87,7 +87,7 @@ class FrontController
             unset($this->viewData['variables']['_raw_template']);
             // Load the template directly, bypassing the layout.
             /** @noinspection PhpIncludeInspection */
-            include $this->viewData['template'];
+            include ROOT_PATH . '/application/templates/' . $this->viewData['template'];
         } else {
             // Load the layout which then loads the template.
             include ROOT_PATH . '/application/templates/LayoutView.phtml';
