@@ -55,13 +55,14 @@ function getWwwUrl()
 // La fonction renvoie vrai si l'argument est un nombre entier
 function isInteger(value)
 {
-    // TODO: implémenter la fonction.
+    return isNumber(value) && (value % 1 === 0);
 }
 
 // La fonction renvoie l'inverse de isNaN() de JavaScript
 function isNumber(value)
 {
     // TODO: implémenter la fonction
+    return !isNaN(value);
 }
 
 function loadDataFromDomStorage(name)
@@ -95,3 +96,25 @@ function saveDataToDomStorage(name, data)
 
     window.localStorage.setItem(name, jsonData);
 }
+
+const fadeIn = (element, duration = 1000) => {
+    element.style.opacity = 0;
+    element.classList.remove('hidden');
+    (function increment(value = 0) {
+        element.style.opacity = String(value);
+        if (element.style.opacity !== '1') {
+            setTimeout(() => {
+                increment(value + 0.1);
+            }, duration / 10);
+        }
+    })();
+};
+
+const fadeOut = (element, duration = 1000) => {
+    element.style.opacity = element.style.opacity ? element.style.opacity : 1;
+    (function decrement() {
+        (element.style.opacity -= 0.1) < 0 ? element.classList.add('hidden') : setTimeout(() => {
+            decrement();
+        }, duration / 10)
+    })();
+};

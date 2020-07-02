@@ -1,4 +1,35 @@
 <!-- Code HTML à écrire -->
-
+<?php if ($flashBag->hasMessages()): ?>
+    <aside class="notice" id="notice">
+        <?php foreach ($flashBag->fetchMessages() as $message): ?>
+            <p><?= $message ?></p>
+        <?php endforeach ?>
+    </aside>
+<?php endif ?>
 
 <!-- Liste des aliments -->
+
+<table class="generic-table meal-list">
+    <caption>Carte du restaurant</caption>
+    <tbody>
+        <!-- TODO -->
+        <?php foreach($meals as $meal): ?>
+            <tr>
+                <td>
+                    <img 
+                         src="<?= $wwwUrl ?>/images/meals/<?= htmlspecialchars($meal['photo'], ENT_COMPAT|ENT_HTML5, MB_ENCODING) ?>" 
+                         alt="<?= htmlspecialchars($meal['name']) ?>">
+                </td>
+                <td>
+                    <strong><?= htmlspecialchars($meal['name']) ?></strong>
+                    <p><?= nl2br(htmlspecialchars($meal['description']), false) ?></p>
+                </td>
+                <td class="number">
+                    <strong>
+                        <?= number_format($meal['sale_price'], 2, ',', ' ') ?> €
+                    </strong>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>

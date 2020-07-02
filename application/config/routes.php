@@ -10,4 +10,5 @@
  */
 $config['routes'] = [
 	'homepage' => ['path' => '', 'controller' => 'Home'],
+	'user_create' => ['path' => '/user/create', 'controller' => 'UserCreate'],
 ];

@@ -81,7 +81,10 @@ class Http
         if (substr($url, 0, 1) !== '/') {
             $url = "/$url";
         }
-        header('Location: //' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME'] . $url);
+        // @fix for Amazon Service IDE
+        header("Location: {$_SERVER['SCRIPT_NAME']}$url");
+        // old code
+        // header('Location: //' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME'] . $url);        header('Location: //' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME'] . $url);
         exit();
     }
 

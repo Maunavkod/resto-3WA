@@ -19,7 +19,13 @@ class HomeController
         * seront converties en variables dans la vue.
         * Il peut également contenir des index spéciaux servant à configurer la vue retournée
         */
-        return [];
+        
+        $mealModel = new MealModel();
+        
+        return [
+            'flashBag' => new FlashBag(),
+            'meals'    => $mealModel->listAll(),
+        ];
     }
 
     public function httpPostMethod(Http $http, array $formFields)
