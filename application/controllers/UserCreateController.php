@@ -48,7 +48,7 @@ class UserCreateController
         	     $formFields['email'],
         	     $formFields['password'],
         	     $formFields['address'],
-        	     $formFields['zip_code'],
+        	     $formFields['zip_code'] ? intval($formFields['zip_code']) : null,
         	     $formFields['city'],
         	     $formFields['phone']
     	     );
