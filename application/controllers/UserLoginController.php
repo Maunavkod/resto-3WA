@@ -21,6 +21,7 @@ class UserLoginController
         */
         
         return [
+            '_form' => new LoginForm(),
         ];
     }
 
@@ -32,5 +33,34 @@ class UserLoginController
     	 * L'argument $http est un objet permettant de faire des redirections etc.
     	 * L'argument $formFields contient l'équivalent de $_POST en PHP natif.
     	 */
+    	 $form = new LoginForm();
+    	 
+    	 try {
+        	 $userModel = new UserModel();
+        	 $user = $userModel->findByEmailPassword(
+        	     $formFields['email'],
+        	     $formFields['password']
+    	     );
+    	     
+    	     // TODO
+    	     
+    	     $userSession = new UserSession();
+    	     $userSession->create(
+    	         $user['id'],
+    	         $user['first_name'],
+    	         $user['last_name'],
+    	         $user['email']
+	         );
+    	     
+    	     $http->redirectTo('/');
+    	 } catch (DomainException $exception) {
+    	     // Récupérer le message pour l'afficher dans le formulaire
+    	     $form->bind($formFields);
+    	     $form->setErrorMessage($exception->getMessage());
+    	 }
+    	 
+    	 return [
+            '_form' => $form,
+	     ];
     }
 }

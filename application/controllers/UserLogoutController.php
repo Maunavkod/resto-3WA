@@ -1,9 +1,9 @@
 <?php
 
-class HomeController
+class UserLogoutController
 {
     // Définit la vue à charger
-    const VIEW = 'Home';
+    const VIEW = '';
 
     public function httpGetMethod(Http $http, array $queryFields)
     {
@@ -20,20 +20,8 @@ class HomeController
         * Il peut également contenir des index spéciaux servant à configurer la vue retournée
         */
         
-        $mealModel = new MealModel();
-        
-        return [
-            'meals'    => $mealModel->listAll(),
-        ];
-    }
-
-    public function httpPostMethod(Http $http, array $formFields)
-    {
-    	/*
-    	 * Méthode appelée en cas de requête HTTP POST
-    	 *
-    	 * L'argument $http est un objet permettant de faire des redirections etc.
-    	 * L'argument $formFields contient l'équivalent de $_POST en PHP natif.
-    	 */
+        $userSession = new UserSession();
+        $userSession->destroy();
+        $http->redirectTo('/');
     }
 }

@@ -34,15 +34,36 @@
         <li>
             <a href="<?= $requestUrl ?>/user/create" class="button button-primary">Créer un compte</a>
         </li>
-        <li class="layout-right">
-            <a href="<?= $requestUrl ?>/user/create" class="button button-primary">Connexion</a>
+            <?php 
+                $userSession = new UserSession();
+                if($userSession->isAuthentificated()): 
+            ?>
+        <li>
+            <a href="<?= $requestUrl ?>/login" class="button button-primary">Commander</a>
         </li>
+        <li class="layout-right">
+            <a href="<?= $requestUrl ?>/logout" class="button button-primary">Déconnexion</a>
+        </li>
+        <li>
+            <p class="welcome">Hi, mister <strong><?= $userSession->getFirstName() ?> <?= $userSession->getLastName() ?></strong></p>
+        </li>
+        <?php else: ?>
+        <li class="layout-right">
+            <a href="<?= $requestUrl ?>/login" class="button button-primary">Connexion</a>
+        </li>
+        <?php endif ?>
     </ul>
 </nav>
 
 <main>
     <!-- Message de notification -->
-
+    <?php if ($flashBag->hasMessages()): ?>
+        <aside class="notice" id="notice">
+            <?php foreach ($flashBag->fetchMessages() as $message): ?>
+                <p><?= $message ?></p>
+            <?php endforeach ?>
+        </aside>
+    <?php endif ?>
     <!-- Affichage du template lié à la vue -->
     <?php include $this->viewData['template'] ?>
 </main>

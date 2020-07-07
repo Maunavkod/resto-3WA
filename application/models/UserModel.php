@@ -2,6 +2,30 @@
 
 class UserModel
 {
+    public function findByEmailPassword(string $email, string $password): array
+    {
+        $db = new Database();
+        $user = $db->queryOne('
+            SELECT 
+                id, 
+                first_name, 
+                last_name, 
+                email, 
+                password
+            FROM user
+            WHERE email = ?
+        ', [$email]);
+        
+        if (!isset($user['email']) || !$this->verifyPassword($password, $user['password']) ) {
+            throw new DomainException(
+                sprintf('L\'adresse mail ou le mot de passe est incorrect !')
+            );
+        }
+        // C'est bien, termine le controleur, t'y es presque
+        unset($user['password']);
+        return $user;
+    }
+    
     /**
      * @param $lastName - Ceci est la valeur du champ last_name dans notre formulaire
      * @param $firstName
